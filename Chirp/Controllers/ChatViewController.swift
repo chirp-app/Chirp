@@ -53,8 +53,14 @@ struct Sender: SenderType{
 
 class ChatViewController: MessagesViewController {
     
-    init(with email: String){
-        self.otherUserEmail = email
+    private var messages = [Message]()
+    public var isNewConversation = false
+    public var otherUserEmail: String
+    public var otherUserName: String
+    
+    init(with user: [String: String]){
+        self.otherUserEmail = user["email"] ?? "UserEmail-Nil"
+        self.otherUserName = user["name"] ?? "UserName-Nil"
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -65,10 +71,6 @@ class ChatViewController: MessagesViewController {
         formatter.locale = .current
         return formatter
     }()
-    
-    private var messages = [Message]()
-    public var isNewConversation = false
-    public var otherUserEmail: String
     
     private var selfSender: Sender? = {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
@@ -110,7 +112,6 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
               let selfSender = self.selfSender,
               let messageId = createMessageId()
               else {
-                    print("here @ point 1")
                     return
                 }
     
@@ -123,9 +124,9 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
                                   messageId: messageId,
                                   sentDate: Date(), 
                                   kind: .text(text))
-            DatabaseManager.shared.createNewConversation(with: otherUserEmail, firstMessage: message, completion: {success in
+            DatabaseManager.shared.createNewConversation(withEmail: otherUserEmail, withName: otherUserName, firstMessage: message, completion: {success in
                 if success {
-                    print("message sent")
+                    print("Message sent")
                 }
                 else{
                     print("Failed to send")

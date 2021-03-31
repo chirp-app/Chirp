@@ -11,7 +11,7 @@ import JGProgressHUD
 
 struct Conversation{
     let id: String
-    let name: String
+    let otherUserName: String
     let otherUserEmail: String
     let latestMessage: LatestMessage
 }
@@ -77,10 +77,11 @@ class ConversationsViewController: UIViewController {
         
         let safeEmail = DatabaseManager.safeEmail(email: email)
         
-        DatabaseManager.shared.getAllConversations(for: email, completion: { [weak self] result in
+        DatabaseManager.shared.getAllConversations(for: safeEmail, completion: { [weak self] result in
             switch result{
             case .success(let conversations):
                 guard !conversations.isEmpty else{
+                    print("No conversations")
                     return
                 }
                 print("Successfully got conversation models")
@@ -111,14 +112,14 @@ class ConversationsViewController: UIViewController {
     
     //TODO: createNewConversation needs to check if the conversation already exists
     private func createNewConversation(result: [String: String]){
-        guard let name = result["name"],
-              let email = result["email"] else {
-            return
-        }
+//        guard let name = result["name"],
+//              let email = result["email"] else {
+//            return
+//        }
         
-        let vc = ChatViewController(with: email)
-        //vc.isNewConversation = true
-        vc.title = name
+        let vc = ChatViewController(with: result)
+        vc.isNewConversation = true
+        vc.title = result["name"]
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -155,7 +156,7 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController(with: "hello@world.com")
+        let vc = ChatViewController(with: ["email":"hello@world.com", "name":"Test User"])
         vc.title = "Test User"
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
@@ -163,21 +164,20 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     //function is used to break up the table view into multiple sections
     func numberOfSections(in tableView: UITableView) -> Int {
+        // May be used later if we want to break up convos
         return 1
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        //should be *the number of conversations the user has stored in firebase*
+        //should be the number of conversations the user has stored in firebase*
+        print(conversations.count)
         return conversations.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         
-        //we are currently creating a dummy cell just for show
-        
-        cell.textLabel?.text = "testing"
-//        cell.textLabel?.text = conversations[indexPath.row]
+        cell.textLabel?.text = conversations[indexPath.row].otherUserName
         cell.accessoryType = .disclosureIndicator
         return cell
     }

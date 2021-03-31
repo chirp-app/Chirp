@@ -157,10 +157,13 @@ extension DatabaseManager {
     */
     
     /// Creates a new conversation with target user email and first message sent
-    public func createNewConversation(with otherUserEmail: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
+    public func createNewConversation(withEmail otherUserEmail: String, withName otherUserName: String, firstMessage: Message, completion: @escaping (Bool) -> Void){
         guard let currentEmail = UserDefaults.standard.value(forKey: "email") as? String else{
             return
         }
+        
+        //TODO: This function will fail if the user's name is something that breaks Firebase (@, [, ], ., etc.)  We need to fix that so it doesn't break.
+        
         let safeEmail = DatabaseManager.safeEmail(email: currentEmail)
         
         let ref = database.child("\(safeEmail)")
@@ -174,7 +177,6 @@ extension DatabaseManager {
             
             let messageDate = firstMessage.sentDate
             let dateString = ChatViewController.dateFormatter.string(from: messageDate)
-            
             var message = ""
             
             switch firstMessage.kind{
@@ -205,6 +207,7 @@ extension DatabaseManager {
             let newConversationData: [String: Any] = [
                 "id":conversationId,
                 "other_user_email": otherUserEmail,
+                "other_user_name" : otherUserName,
                 "latest_message": [
                     "date": dateString,
                     "message": message,
@@ -326,9 +329,7 @@ extension DatabaseManager {
     
     ///Fetches and returns all conversation IDs for the user with passed in email
     public func getAllConversations(for email: String, completion: @escaping (Result<[Conversation], Error>) -> Void ){
-        let ref = database.child(email+"/conversations")
-        
-        ref.observe(.value, with: {snapshot in
+        database.child(email+"/conversations").observe(.value, with: {snapshot in
             
             guard let value = snapshot.value as? [[String: Any]] else{
                 completion(.failure(DatabaseError.failedToFetch))
@@ -337,31 +338,27 @@ extension DatabaseManager {
             
             let conversations: [Conversation] = value.compactMap({dictionary in
                 guard let conversationId = dictionary["id"] as? String,
-                      let name = dictionary["name"] as? String,
+                      let other_user_name = dictionary["other_user_name"] as? String,
                       let otherUserEmail = dictionary["other_user_email"] as? String,
-                      let latestMessage = dictionary["message"] as? [String: Any],
+                      let latestMessage = dictionary["latest_message"] as? [String: Any],
                       let date = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
                       let isRead = latestMessage["is_read"] as? Bool
                 else{
-                        return nil
+                    return nil
                 }
                 
                 let latestMessageObject = LatestMessage(date: date,
                                                         text: message,
                                                         isRead: isRead)
                 
-                
                 return Conversation(id: conversationId,
-                                    name: name,
+                                    otherUserName: other_user_name,
                                     otherUserEmail: otherUserEmail,
                                     latestMessage: latestMessageObject)
             })
-            
             completion(.success(conversations))
-            
         })
-        
     }
     
     ///Gets all messages for a given conversation
@@ -371,6 +368,23 @@ extension DatabaseManager {
     ///Sends a message with target conversation and message
     public func sendMessage(to conversation: String, message: Message, completion: @escaping(Bool)->Void){
         
+    }
+    
+    public func convertEmailToName(email: String, completion: @escaping (String)->Void){
+        var userName = ""
+        database.child("\(email)").getData(completion: { (error, snapshot) in
+            if let error = error {
+                    print("Error getting data \(error)")
+                }
+                else if snapshot.exists() {
+                    let value = snapshot.value as? NSDictionary
+                    userName = "\(value?["first_name"])"+" "+"\(value?["last_name"])"
+                }
+                else {
+                    print("No data available")
+                }
+        })
+        completion(userName)
     }
 }
 
