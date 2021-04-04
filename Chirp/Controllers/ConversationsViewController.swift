@@ -77,7 +77,7 @@ class ConversationsViewController: UIViewController {
         
         let safeEmail = DatabaseManager.safeEmail(email: email)
         
-        DatabaseManager.shared.getAllConversations(for: email, completion: { [weak self] result in
+        DatabaseManager.shared.getAllConversations(for: safeEmail, completion: { [weak self] result in
             switch result{
             case .success(let conversations):
                 guard !conversations.isEmpty else{
