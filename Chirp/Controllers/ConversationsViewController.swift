@@ -17,7 +17,7 @@ struct Conversation{
 }
 
 struct LatestMessage {
-    let date: String
+    let date: Date
     let text: String
     let isRead: Bool
 }
@@ -86,8 +86,10 @@ class ConversationsViewController: UIViewController {
                 }
                 print("Successfully got conversation models")
                 //will be used with fully customized tableView cells
-                self?.conversations = conversations
-                print(conversations)
+                
+                //sort the conversations with the latest conversation at the top
+                self?.conversations = conversations.sorted(by: {$0.latestMessage.date > $1.latestMessage.date})
+                
                 DispatchQueue.main.async {
                     self?.tableView.reloadData()
                 }
@@ -112,10 +114,6 @@ class ConversationsViewController: UIViewController {
     
     //TODO: createNewConversation needs to check if the conversation already exists
     private func createNewConversation(result: [String: String]){
-//        guard let name = result["name"],
-//              let email = result["email"] else {
-//            return
-//        }
         
         let vc = ChatViewController(with: result)
         vc.isNewConversation = true
@@ -170,7 +168,6 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //should be the number of conversations the user has stored in firebase*
-        print(conversations.count)
         return conversations.count
     }
     

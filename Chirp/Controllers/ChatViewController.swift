@@ -64,13 +64,13 @@ class ChatViewController: MessagesViewController {
         super.init(nibName: nil, bundle: nil)
     }
     
-    public static let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .medium
-        formatter.timeStyle = .long
-        formatter.locale = .current
-        return formatter
-    }()
+//    public static let dateFormatter: DateFormatter = {
+//        let formatter = DateFormatter()
+//        formatter.dateStyle = .medium
+//        formatter.timeStyle = .long
+//        formatter.locale = .current
+//        return formatter
+//    }()
     
     private var selfSender: Sender? = {
         guard let email = UserDefaults.standard.value(forKey: "email") as? String else {
@@ -146,7 +146,7 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
             return nil
         }
         currentUserEmail = DatabaseManager.safeEmail(email: currentUserEmail)
-        let dateString = Self.dateFormatter.string(from: Date())
+        let dateString = Utilities.dateFormatter.string(from: Date())
         let newIdentifier = "\(otherUserEmail)_\(currentUserEmail)_\(dateString)"
         print ("Created message ID: \(newIdentifier)")
         return newIdentifier

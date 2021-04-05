@@ -176,7 +176,7 @@ extension DatabaseManager {
             }
             
             let messageDate = firstMessage.sentDate
-            let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+            let dateString = Utilities.dateFormatter.string(from: messageDate)
             var message = ""
             
             switch firstMessage.kind{
@@ -267,7 +267,7 @@ extension DatabaseManager {
         let messageDate = firstMessage.sentDate
         print(messageDate)
         //time message is sent in local time
-        let dateString = ChatViewController.dateFormatter.string(from: messageDate)
+        let dateString = Utilities.dateFormatter.string(from: messageDate)
         
         var message = ""
         switch firstMessage.kind{
@@ -341,10 +341,15 @@ extension DatabaseManager {
                       let other_user_name = dictionary["other_user_name"] as? String,
                       let otherUserEmail = dictionary["other_user_email"] as? String,
                       let latestMessage = dictionary["latest_message"] as? [String: Any],
-                      let date = latestMessage["date"] as? String,
+                      let dateString = latestMessage["date"] as? String,
                       let message = latestMessage["message"] as? String,
                       let isRead = latestMessage["is_read"] as? Bool
                 else{
+                    return nil
+                }
+                
+                guard let date = Utilities.dateFormatter.date(from: dateString) else{
+                    print ("Failed to convert datString to Date object.")
                     return nil
                 }
                 
