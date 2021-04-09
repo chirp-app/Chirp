@@ -222,16 +222,15 @@ class RegisterViewController: UIViewController {
                             return
                         }
                         let fileName = chatUser.profilePictureFileName
-                        StorageManager.shared.uploadProfilePicture(with: data,
-                                                                   fileName: fileName, completion: {result in
-                                                                    switch result {
-                                                                    case .success(let downloadURL):
-                                                                        UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
-                                                                        print (downloadURL)
-                                                                    case .failure(let error):
-                                                                        print("Storage manager error: \(error)")
-                                                                   }
-                                                                   })
+                        StorageManager.shared.uploadProfilePicture(with: data,fileName: fileName, completion: {result in
+                            switch result {
+                            case .success(let downloadURL):
+                                UserDefaults.standard.set(downloadURL, forKey: "profile_picture_url")
+                                print (downloadURL)
+                            case .failure(let error):
+                                print("Storage manager error: \(error)")
+                            }
+                        })
                     }
                 })
                 

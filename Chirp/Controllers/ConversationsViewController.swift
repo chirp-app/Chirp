@@ -115,7 +115,7 @@ class ConversationsViewController: UIViewController {
     //TODO: createNewConversation needs to check if the conversation already exists
     private func createNewConversation(result: [String: String]){
         
-        let vc = ChatViewController(with: result)
+        let vc = ChatViewController(with: result, id: nil)
         vc.isNewConversation = true
         vc.title = result["name"]
         vc.navigationItem.largeTitleDisplayMode = .never
@@ -154,8 +154,10 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController(with: ["email":"hello@world.com", "name":"Test User"])
-        vc.title = "Test User"
+        let vc = ChatViewController(with: ["email":conversations[indexPath.row].otherUserEmail,
+                                           "name":conversations[indexPath.row].otherUserName],
+                                            id: conversations[indexPath.row].id)
+        vc.title = conversations[indexPath.row].otherUserName
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
     }
