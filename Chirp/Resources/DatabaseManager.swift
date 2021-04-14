@@ -419,10 +419,12 @@ extension DatabaseManager {
                       let dateString = dictionary["date"] as? String,
                       let date = Utilities.dateFormatter.date(from: dateString),
                       let id = dictionary["id"] as? String,
-                      let isRead = dictionary["is_read"] as? Bool,
+//                      let isRead = dictionary["is_read"] as? Bool,
                       let name = dictionary["name"] as? String,
-                      let senderEmail = dictionary["sender_email"] as? String,
-                      let type = dictionary["type"] as? String else{
+//                      let type = dictionary["type"] as? String,
+                      let senderEmail = dictionary["sender_email"] as? String
+                      
+                else{
                     return nil
                 }
                 
@@ -440,7 +442,7 @@ extension DatabaseManager {
     }
         
     ///Sends a message with target conversation and message
-    public func sendMessage(to conversation: String, messageData: Message, completion: @escaping(Bool)->Void){
+    public func sendMessage(toConvo conversation: String, toUserEmail otherUserEmail: String, toUserName otherUserName: String, messageData: Message, completion: @escaping(Bool)->Void){
         
         var message = ""
         switch messageData.kind{
@@ -478,7 +480,7 @@ extension DatabaseManager {
             "name": messageData.sender.displayName
         ]
         
-        let ref = database.child("\(conversation)/messages")
+        var ref = database.child("\(conversation)/messages")
         
         ref.observeSingleEvent(of: .value, with: { snapshot in
             guard var messageDictionary = snapshot.value as? [[String: Any]] else {
@@ -495,6 +497,42 @@ extension DatabaseManager {
             completion(true)
             })
         })
+        
+        ref = database.child("\(otherUserEmail)/conversations")
+        let query_result = ref.queryOrdered(byChild: "id").queryEqual(toValue: conversation)
+        let query_value = query_result.value(forKey: "id")
+        
+        print(query_value)
+            
+//        query.observeSingleEvent(of: .value, with: {snapshot in
+//            guard let values = snapshot.value as?  [String: Any] else {
+//                print("Error on database query.")
+//                return
+//            }
+//            print(values)
+//        })
+        
+        let sender_newMessageData: [String: Any] = [
+            "id":conversation,
+            "other_user_email": otherUserEmail,
+            "other_user_name" : otherUserName,
+            "latest_message": [
+                "date": dateString,
+                "message": message,
+                "is_read": false,
+            ]
+        ]
+        
+        let recipient_newMessageData: [String: Any] = [
+            "id":conversation,
+            "other_user_email": messageData.sender.senderId,
+            "other_user_name" : UserDefaults.standard.value(forKey: "name")!,
+            "latest_message": [
+                "date": dateString,
+                "message": message,
+                "is_read": false,
+            ]
+        ]
     }
     
     public func convertEmailToName(email: String, completion: @escaping (String)->Void){

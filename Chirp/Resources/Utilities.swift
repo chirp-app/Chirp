@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 public final class Utilities{
     
@@ -17,8 +18,4 @@ public final class Utilities{
         return formatter
     }()
     
-}
-
-
-
-
+} 

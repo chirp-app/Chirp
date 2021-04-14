@@ -69,6 +69,15 @@ class LoginViewController: UIViewController {
         return button
     }()
     
+    private let invalidLogin: UIAlertController = {
+        let alert = UIAlertController()
+        alert.title = "Invalid Login"
+        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: {_ in
+            alert.dismiss(animated: true, completion: {})
+        }))
+        return alert
+    }()
+    
     
     private let facebookLoginButton: FBLoginButton = {
         let button = FBLoginButton()
@@ -136,7 +145,7 @@ class LoginViewController: UIViewController {
         passwordField.resignFirstResponder()
         
         guard let email = emailField.text, let password = passwordField.text, !email.isEmpty, !password.isEmpty, password.count >= 6 else{
-            alertUserLoginError()
+            alertIncompleteUserLoginError()
             return
         }
         
@@ -157,6 +166,7 @@ class LoginViewController: UIViewController {
         
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email: \(email)")
+                self?.alertIncorrectUserLoginError()
                 return
             }
             
@@ -164,7 +174,7 @@ class LoginViewController: UIViewController {
             
             let safeEmail = DatabaseManager.safeEmail(email: email)
             
-            DatabaseManager.shared.getDataForPath(path: "\(safeEmail)", completion: { [weak self] result in
+            DatabaseManager.shared.getDataForPath(path: "\(safeEmail)", completion: { result in
                 switch result{
                 case .success(let value):
                     guard let userData = value as? [String: Any] else{
@@ -189,8 +199,14 @@ class LoginViewController: UIViewController {
         
     }
     
-    func alertUserLoginError(){
+    func alertIncompleteUserLoginError(){
         let alert = UIAlertController(title: "Woops", message: "Please enter all information to log in.", preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title:"Dismiss", style: .cancel, handler: nil))
+        present(alert, animated: true)
+    }
+    
+    func alertIncorrectUserLoginError(){
+        let alert = UIAlertController(title: "Invalid login", message: "Please enter a valid email and password to log in.", preferredStyle: .alert)
         alert.addAction(UIAlertAction(title:"Dismiss", style: .cancel, handler: nil))
         present(alert, animated: true)
     }

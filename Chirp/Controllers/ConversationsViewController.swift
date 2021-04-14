@@ -31,7 +31,7 @@ class ConversationsViewController: UIViewController {
     private let tableView: UITableView = {
         let table = UITableView()
         table.isHidden = true
-        table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        table.register(ConversationTableViewCell.self, forCellReuseIdentifier: ConversationTableViewCell.identifier)
         return table
     }()
     
@@ -122,11 +122,6 @@ class ConversationsViewController: UIViewController {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    func checkIfNewConversation(email: String) -> Bool{
-
-        return false
-    }
-    
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
@@ -154,11 +149,15 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         
-        let vc = ChatViewController(with: ["email":conversations[indexPath.row].otherUserEmail,
-                                           "name":conversations[indexPath.row].otherUserName],
-                                            id: conversations[indexPath.row].id)
+        let model = conversations[indexPath.row]
+        
+        let vc = ChatViewController(with: ["email":model.otherUserEmail,
+                                           "name":model.otherUserName],
+                                            id: model.id)
+        
         vc.title = conversations[indexPath.row].otherUserName
         vc.navigationItem.largeTitleDisplayMode = .never
+        vc.scrollsToLastItemOnKeyboardBeginsEditing = true
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -174,12 +173,13 @@ extension ConversationsViewController: UITableViewDelegate, UITableViewDataSourc
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
-        
-        cell.textLabel?.text = conversations[indexPath.row].otherUserName
-        cell.accessoryType = .disclosureIndicator
+        let model = conversations[indexPath.row]
+        let cell = tableView.dequeueReusableCell(withIdentifier: ConversationTableViewCell.identifier, for: indexPath) as! ConversationTableViewCell
+        cell.configure(with: model)
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        return 90
+    }
 }
