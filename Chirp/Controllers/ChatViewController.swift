@@ -55,7 +55,7 @@ class ChatViewController: MessagesViewController {
     
     private var messages = [Message]()
     public var isNewConversation = false
-    private let conversationID: String?
+    private var conversationID: String?
     public var otherUserEmail: String
     public var otherUserName: String
     
@@ -66,6 +66,8 @@ class ChatViewController: MessagesViewController {
         super.init(nibName: nil, bundle: nil)
         if let conversationId = conversationID{
             listenForMessages(id: conversationId)
+        } else {
+            isNewConversation = true
         }
     }
     
@@ -135,38 +137,36 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
         print(messageId)
         print("Sending: \(text)")
         //send message
+        
+        let message = Message(sender: selfSender,
+                              messageId: messageId,
+                              sentDate: Date(),
+                              kind: .text(text))
+        
         if isNewConversation {
             //create convo in database
-            let message = Message(sender: selfSender,
-                                  messageId: messageId,
-                                  sentDate: Date(), 
-                                  kind: .text(text))
-            DatabaseManager.shared.createNewConversation(withEmail: otherUserEmail, withName: otherUserName, firstMessage: message, completion: {success in
+            conversationID = DatabaseManager.shared.createNewConversation(withEmail: otherUserEmail, withName: otherUserName, firstMessage: message, completion: {success in
                 if success {
-                    print("Message sent")
+                    print("Created new conversation")
                 }
                 else{
-                    print("Failed to send")
+                    print("Failed to create new conversation")
                 }
                 
             })
         }
-        else {
-            //append to existing conversation data
-            let message = Message(sender: selfSender,
-                                  messageId: messageId,
-                                  sentDate: Date(),
-                                  kind: .text(text))
-            DatabaseManager.shared.sendMessage(toConvo: conversationID!, toUserEmail: otherUserEmail, toUserName: otherUserName, messageData: message, completion: { success in
-                switch success{
-                case true:
-                    print("Successfully sent message")
-                case false:
-                    print("Unable to send message")
-                    
-                }
-            })
-        }
+        
+        //append to existing conversation data
+        DatabaseManager.shared.sendMessage(toConvo: conversationID!, toUserEmail: otherUserEmail, toUserName: otherUserName, messageData: message, completion: { success in
+            switch success{
+            case true:
+                print("Successfully sent message")
+            case false:
+                print("Unable to send message")
+
+            }
+        })
+        
         inputBar.inputTextView.attributedText = NSAttributedString(string:"")
     }
 

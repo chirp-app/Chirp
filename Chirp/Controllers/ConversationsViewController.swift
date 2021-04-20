@@ -56,6 +56,7 @@ class ConversationsViewController: UIViewController {
         view.addSubview(tableView)
         view.addSubview(noConversationsLabel)
         setupTableView()
+        layoutSubviews()
         fetchConversations()
         startListeningForConversations()
     }
@@ -63,6 +64,10 @@ class ConversationsViewController: UIViewController {
     private func setupTableView(){
         tableView.delegate = self
         tableView.dataSource = self
+    }
+    
+    private func layoutSubviews(){
+        noConversationsLabel.frame = CGRect(x: 90, y: 310, width: 200, height: 100)
     }
     
     private func fetchConversations(){
@@ -82,10 +87,14 @@ class ConversationsViewController: UIViewController {
             case .success(let conversations):
                 guard !conversations.isEmpty else{
                     print("No conversations")
+//                    self?.tableView.isHidden = true
+//                    self?.noConversationsLabel.isHidden = false
                     return
                 }
+                self?.tableView.isHidden = false
+                self?.noConversationsLabel.isHidden = true
+            
                 print("Successfully got conversation models")
-                //will be used with fully customized tableView cells
                 
                 //sort the conversations with the latest conversation at the top
                 self?.conversations = conversations.sorted(by: {$0.latestMessage.date > $1.latestMessage.date})
@@ -95,6 +104,8 @@ class ConversationsViewController: UIViewController {
                 }
             case .failure(let error):
                 print("Failed to get conversations: \(error)")
+                self?.tableView.isHidden = true
+                self?.noConversationsLabel.isHidden = false
             }
             
         })
@@ -105,7 +116,7 @@ class ConversationsViewController: UIViewController {
         let vc = NewConversationViewController()
         vc.completion = { [weak self] result in
             print("New convo result: \(result)")
-            self?.createNewConversation(result: result)
+            self?.openConversationChat(result: result)
         }
         let navVC  = UINavigationController(rootViewController: vc)
         present(navVC, animated:true)
@@ -113,10 +124,9 @@ class ConversationsViewController: UIViewController {
     
     
     //TODO: createNewConversation needs to check if the conversation already exists
-    private func createNewConversation(result: [String: String]){
+    private func openConversationChat(result: [String: String]){
         
         let vc = ChatViewController(with: result, id: nil)
-        vc.isNewConversation = true
         vc.title = result["name"]
         vc.navigationItem.largeTitleDisplayMode = .never
         navigationController?.pushViewController(vc, animated: true)
