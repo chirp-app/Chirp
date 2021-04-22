@@ -43,12 +43,26 @@ class ProfileViewController: UIViewController {
                                         width: 150,
                                         height: 150))
         
+        let userNameLabel = UILabel(frame: CGRect(x: (view.width - 150)/2,
+                                                  y: imageView.bottom + 15,
+                                                  width: 250,
+                                                  height: 23))
+        guard let userName = UserDefaults.standard.value(forKey: "name") as? String else{
+            return nil
+        }
+        userNameLabel.text = userName
+        userNameLabel.font = UIFont(name:"HelveticaNeue-Bold", size: 20)
+        userNameLabel.textColor = .white
+        
+        
         imageView.contentMode = .scaleAspectFill
         imageView.backgroundColor = .white
         imageView.layer.borderWidth = 3
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = imageView.width/2
+    
         headerView.addSubview(imageView)
+        headerView.addSubview(userNameLabel)
         
         StorageManager.shared.downloadURL(for: path, completion: { [weak self] result in
             switch result {
