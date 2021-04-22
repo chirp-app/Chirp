@@ -155,17 +155,18 @@ extension ChatViewController: InputBarAccessoryViewDelegate{
                 
             })
         }
-        
-        //append to existing conversation data
-        DatabaseManager.shared.sendMessage(toConvo: conversationID!, toUserEmail: otherUserEmail, toUserName: otherUserName, messageData: message, completion: { success in
-            switch success{
-            case true:
-                print("Successfully sent message")
-            case false:
-                print("Unable to send message")
-
-            }
-        })
+        else{
+            //append to existing conversation data
+            DatabaseManager.shared.sendMessage(toConvo: conversationID!, toUserEmail: otherUserEmail, toUserName: otherUserName, messageData: message, completion: { success in
+                switch success{
+                case true:
+                    print("Successfully sent message")
+                case false:
+                    print("Unable to send message")
+                    
+                }
+            })
+        }
         
         inputBar.inputTextView.attributedText = NSAttributedString(string:"")
     }

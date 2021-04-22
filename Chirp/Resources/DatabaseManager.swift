@@ -252,7 +252,9 @@ extension DatabaseManager {
                 
             }else{
                 //create conversation node and first entry
-                self?.database.child("\(safeEmailCurrentUser)/conversations").setValue([sender_newConversationData])
+                self?.database.child("\(safeEmailCurrentUser)/conversations").setValue(
+                    [sender_newConversationData])
+                
             }
         })
         
@@ -297,6 +299,7 @@ extension DatabaseManager {
                 collectionMessage
             ]
         ]
+
         
         //        what does the _ do?
         self.database.child("\(conversationId)").setValue(value, withCompletionBlock: { error, _ in
