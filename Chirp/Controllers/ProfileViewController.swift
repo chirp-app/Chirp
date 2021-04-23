@@ -9,13 +9,28 @@ import UIKit
 import FirebaseAuth
 
 class ProfileViewController: UIViewController {
-
-    @IBOutlet var tableView: UITableView!
+    
+//    @IBOutlet var tableView: UITableView!
+    internal var tableView: UITableView = {
+        let table = UITableView()
+//        table.backgroundColor = UIColor.white
+        table.translatesAutoresizingMaskIntoConstraints = false
+        return table
+      } ()
     
     let data = ["Log Out"]
     
+    init() {
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+      fatalError("init(coder:) has not been implemented.")
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        view.backgroundColor = .white
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self

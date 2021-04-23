@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		20CC6A59263261200010AE86 /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC6A58263261200010AE86 /* MainTabBarVC.swift */; };
+		20CC6A5C2632613E0010AE86 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC6A5B2632613E0010AE86 /* CalendarViewController.swift */; };
 		2C4A25912591A2060018DB5D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A25902591A2060018DB5D /* Extensions.swift */; };
 		2C4A25C12597C1080018DB5D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C4A25C02597C1080018DB5D /* GoogleService-Info.plist */; };
 		2C92BE7B259ADD9A00DF4620 /* DatabaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C92BE7A259ADD9A00DF4620 /* DatabaseManager.swift */; };
@@ -15,9 +17,7 @@
 		2CACB8A9259037ED0023EC75 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8A8259037ED0023EC75 /* AppDelegate.swift */; };
 		2CACB8AB259037ED0023EC75 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8AA259037ED0023EC75 /* SceneDelegate.swift */; };
 		2CACB8AD259037ED0023EC75 /* ConversationsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8AC259037ED0023EC75 /* ConversationsViewController.swift */; };
-		2CACB8B0259037ED0023EC75 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CACB8AE259037ED0023EC75 /* Main.storyboard */; };
 		2CACB8B2259037EF0023EC75 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2CACB8B1259037EF0023EC75 /* Assets.xcassets */; };
-		2CACB8B5259037EF0023EC75 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2CACB8B3259037EF0023EC75 /* LaunchScreen.storyboard */; };
 		2CACB8C625903FDA0023EC75 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8C525903FDA0023EC75 /* LoginViewController.swift */; };
 		2CACB8C925903FFD0023EC75 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8C825903FFD0023EC75 /* RegisterViewController.swift */; };
 		2CACB8CC259040460023EC75 /* PhotoViewerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8CB259040460023EC75 /* PhotoViewerViewController.swift */; };
@@ -29,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		20CC6A58263261200010AE86 /* MainTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
+		20CC6A5B2632613E0010AE86 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		2C4A25902591A2060018DB5D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		2C4A25C02597C1080018DB5D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C92BE7A259ADD9A00DF4620 /* DatabaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseManager.swift; sourceTree = "<group>"; };
@@ -38,9 +40,7 @@
 		2CACB8A8259037ED0023EC75 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2CACB8AA259037ED0023EC75 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		2CACB8AC259037ED0023EC75 /* ConversationsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsViewController.swift; sourceTree = "<group>"; };
-		2CACB8AF259037ED0023EC75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		2CACB8B1259037EF0023EC75 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		2CACB8B4259037EF0023EC75 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		2CACB8B6259037EF0023EC75 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2CACB8C525903FDA0023EC75 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		2CACB8C825903FFD0023EC75 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +115,8 @@
 				2CACB8D1259040A00023EC75 /* NewConversationViewController.swift */,
 				2CACB8D4259040B40023EC75 /* ProfileViewController.swift */,
 				2C92BF2225AEA4EF00DF4620 /* ChatViewController.swift */,
+				20CC6A5B2632613E0010AE86 /* CalendarViewController.swift */,
+				20CC6A58263261200010AE86 /* MainTabBarVC.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -144,8 +146,6 @@
 		2CACB8C325903C010023EC75 /* Storyboards */ = {
 			isa = PBXGroup;
 			children = (
-				2CACB8AE259037ED0023EC75 /* Main.storyboard */,
-				2CACB8B3259037EF0023EC75 /* LaunchScreen.storyboard */,
 			);
 			path = Storyboards;
 			sourceTree = "<group>";
@@ -226,10 +226,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2CACB8B5259037EF0023EC75 /* LaunchScreen.storyboard in Resources */,
 				2C4A25C12597C1080018DB5D /* GoogleService-Info.plist in Resources */,
 				2CACB8B2259037EF0023EC75 /* Assets.xcassets in Resources */,
-				2CACB8B0259037ED0023EC75 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -282,7 +280,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				20CC6A5C2632613E0010AE86 /* CalendarViewController.swift in Sources */,
 				2CACB8C625903FDA0023EC75 /* LoginViewController.swift in Sources */,
+				20CC6A59263261200010AE86 /* MainTabBarVC.swift in Sources */,
 				2C92BE7B259ADD9A00DF4620 /* DatabaseManager.swift in Sources */,
 				2CACB8C925903FFD0023EC75 /* RegisterViewController.swift in Sources */,
 				2CACB8D2259040A00023EC75 /* NewConversationViewController.swift in Sources */,
@@ -300,25 +300,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		2CACB8AE259037ED0023EC75 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2CACB8AF259037ED0023EC75 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		2CACB8B3259037EF0023EC75 /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				2CACB8B4259037EF0023EC75 /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		2CACB8B7259037EF0023EC75 /* Debug */ = {

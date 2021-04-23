@@ -23,4 +23,6 @@ pod 'JGProgressHUD'
 pod 'RealmSwift' #This pod creates a database on the user device
 pod 'SDWebImage'
 
+pod 'FSCalendar'
+
 end

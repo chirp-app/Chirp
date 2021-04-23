@@ -11,6 +11,7 @@ import Firebase
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    var window: UIWindow?
     
     func application(
         _ application: UIApplication,
@@ -23,6 +24,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             application,
             didFinishLaunchingWithOptions: launchOptions
         )
+        
+        window = UIWindow(frame: UIScreen.main.bounds)
+        let mainTabBarVC = MainTabBarVC()
+        window?.rootViewController = mainTabBarVC
+        window?.makeKeyAndVisible()
 
         return true
     }
