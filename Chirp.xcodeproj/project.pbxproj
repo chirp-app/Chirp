@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		207163CA26409E4F0098D9B4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 207163C926409E4F0098D9B4 /* ProfileView.swift */; };
 		20CC6A59263261200010AE86 /* MainTabBarVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC6A58263261200010AE86 /* MainTabBarVC.swift */; };
 		20CC6A5C2632613E0010AE86 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 20CC6A5B2632613E0010AE86 /* CalendarViewController.swift */; };
 		2C4A25912591A2060018DB5D /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C4A25902591A2060018DB5D /* Extensions.swift */; };
@@ -29,6 +30,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		207163C926409E4F0098D9B4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		20CC6A58263261200010AE86 /* MainTabBarVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainTabBarVC.swift; sourceTree = "<group>"; };
 		20CC6A5B2632613E0010AE86 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		2C4A25902591A2060018DB5D /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
@@ -126,6 +128,7 @@
 			children = (
 				2CACB8C325903C010023EC75 /* Storyboards */,
 				2CACB8B1259037EF0023EC75 /* Assets.xcassets */,
+				207163C926409E4F0098D9B4 /* ProfileView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -289,6 +292,7 @@
 				2CACB8AD259037ED0023EC75 /* ConversationsViewController.swift in Sources */,
 				2CACB8CF259040680023EC75 /* VideoPlayerViewController.swift in Sources */,
 				2C4A25912591A2060018DB5D /* Extensions.swift in Sources */,
+				207163CA26409E4F0098D9B4 /* ProfileView.swift in Sources */,
 				2CACB8A9259037ED0023EC75 /* AppDelegate.swift in Sources */,
 				2CACB8D5259040B40023EC75 /* ProfileViewController.swift in Sources */,
 				2CACB8AB259037ED0023EC75 /* SceneDelegate.swift in Sources */,
