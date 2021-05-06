@@ -27,7 +27,7 @@
 		2CACB8D2259040A00023EC75 /* NewConversationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8D1259040A00023EC75 /* NewConversationViewController.swift */; };
 		2CACB8D5259040B40023EC75 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB8D4259040B40023EC75 /* ProfileViewController.swift */; };
 		2CDB585C25E3254300E6635A /* UserDefaultsInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CDB585B25E3254300E6635A /* UserDefaultsInteraction.swift */; };
-		C874AD8B1A2F3D586ED17F02 /* Pods_Chirp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33D5D7C77395F21300062263 /* Pods_Chirp.framework */; };
+		ED2BFB882E3D85850FDA0CD0 /* Pods_Chirp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 33D5D7C77395F21300062263 /* Pods_Chirp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -63,7 +63,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C874AD8B1A2F3D586ED17F02 /* Pods_Chirp.framework in Frameworks */,
+				ED2BFB882E3D85850FDA0CD0 /* Pods_Chirp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
